@@ -1,0 +1,67 @@
+#include <dom>
+#include <ajax>
+#include <uri>
+
+def errorbox(msg) {
+    JS('(ErrorOpen=true)')
+    JS('(GoGoGo=false)')
+    #errorbox.setContent('<div>'+msg+'</div><button onclick="ErrorOpen=false">OK</button>')
+    #errorbox.fadeIn(200)
+    while JS('ErrorOpen') yield
+    #errorbox.fadeOut(200)
+    while #errorbox.currentlyPlayingAnimations yield
+    #errorbox.hide()
+}
+
+body.setContent('
+    <div id=newbrowser>
+        <img src="//www.prewired.org/img/scotlandcol2.png" alt=Prewired style="height:30vh;margin-top:2em;" alignx=center id=logoIMG>
+        <h1 id=signupH1 style="text-align:center;">Signup for Prewired</h1>
+        <p id=dateP style="text-align:center;margin-top:-1em;">On '+window.nextPW+'</p>
+        <span id=nameSPAN alignx=center style="font-size:x-large;">Name:<input id=namebox style="font-size:x-large;" type=text></span>
+        <div id=buttonDIV onclick="GoGoGo=!ErrorOpen" ontouchstart="GoGoGo=!ErrorOpen">!</div>
+        <div id=thx style="text-align:center;position:absolute;top:calc(30vh + 4em);left:0;width:100%;">
+            <h1>Thank you for registering!</h1>
+            We hope to see you there!
+        </div>
+    </div>
+    <div id=errorbox></div>
+')
+
+#logoIMG.fadeIn(200)
+while #logoIMG.currentlyPlayingAnimations yield
+#signupH1.fadeIn(200)
+while #signupH1.currentlyPlayingAnimations yield
+#dateP.fadeIn(200)
+while #dateP.currentlyPlayingAnimations yield
+#nameSPAN.fadeIn(200)
+while #nameSPAN.currentlyPlayingAnimations yield
+#buttonDIV.fadeIn(200)
+
+submitted = false
+
+while submitted == false {
+    if JS('GoGoGo') {
+        JS('(GoGoGo=false)')
+        r = GET('coming/new?p='+encodeURIComponent(#namebox.value))
+        if r.code!=200 {
+            errorbox('An unknown error ('+r.code+') occurred.<br>Please try again later.')
+        } else {
+            if r.text!='success' {
+                errorbox(r.text)
+            } else {
+                submitted = true;
+            }
+        }
+    }
+    yield
+}
+
+#signupH1.fadeOut(300)
+#dateP.fadeOut(300)
+#nameSPAN.fadeOut(300)
+#buttonDIV.fadeOut(300)
+
+while #buttonDIV.currentlyPlayingAnimations yield
+
+#thx.fadeIn(300)

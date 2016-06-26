@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="//gemdude46.github.io/libs/$.js"></script>
+        <script src="//gemdude46.github.io/libs/w3+.js"></script>
+        <style>
+            #top {
+                position: absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height:10vh;
+                background: linear-gradient(#e00, #c00);
+            }
+            
+            #top div {
+                color:white;
+                font-size:6vh;
+                font-weight:bolder;
+                margin:2vh;
+            }
+            
+            #top div + div {
+                position:absolute;
+                right:0;
+                top:0;
+            }
+            
+            #ls {
+                position:absolute;
+                top:10vh;
+                left:3.462vh;
+                width:calc(100% - 3.462vh);
+                height:90vh;
+                overflow:auto;
+            }
+            
+            #ls div {
+                width:100%;
+                height:1.3em;
+                border-bottom:1px solid #666;
+                font-size:200%;
+                text-align:center;
+            }
+            
+            #ls div[here=yes] {
+                background-color:#0f0;
+                color:#fff;
+            }
+            
+            #lb {
+                position:absolute;
+                top:10vh;
+                left:0;
+                width:3.462vh;
+                height:90vh;
+                background-color:#a00;
+            }
+            
+            #lb div {
+                color:white;
+                width:3.462vh;
+                height:3.462vh;
+                line-height:3.462vh;
+                text-align:center;
+                font-size:3vh;
+            }
+            
+            html, body {
+                margin:0;
+                width:100%;
+                height:100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id=top>
+            <div>Prewired</div>
+            <div>{d}</div>
+        </div>
+        <div id=ls></div>
+        <div id=lb></div>
+        <script>
+            $X(GET_s('/ls$'));
+            onload = function(){
+                var lb = document.querySelector('#lb');
+                Array.from('ABCDEFGHIJKLMNOPQRSTUVWXYZ').forEach(function(letter,pos){
+                    lb.appendContent(createElement('div',{class:'unselectable'},letter,[['click',function(){
+                        var l = this.innerHTML;
+                        var f;
+                        Array.from(document.querySelectorAll('#ls > *')).forEach(function(e){
+                            if(f)return;
+                            if(e.innerHTML.split(' ').last().startsWith(l)){
+                                f=1;
+                                document.querySelector('#ls').scrollVertToElement(e);
+                            }
+                        });
+                    }]]));
+                });
+            };
+        </script>
+    </body>
+</html>

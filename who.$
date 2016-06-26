@@ -1,0 +1,29 @@
+#include <ajax>
+#include <json>
+#include <time>
+#include <dom>
+
+lastcheck = -9999
+GLOBALS.coming = []
+
+#ls.innerHTML='Loading...'
+while window.PLUS == undefined yield
+
+while 1 {
+    if now - lastcheck > 9999 {
+        ls = deJSONify(GET('/coming/who').text)
+        lastcheck = now
+        ls.sort(JS('(function(a,b){var A=a.split(" ").last(), B=b.split(" ").last();return A==B?0:(A>B?1:-1)})'))
+        i=0
+        x=''
+        while i<ls.length {
+            c=ls[i]
+            x=x+'<div class=unselectable onclick=\'if($GLOBALS.coming.indexOf("'+c+'")<0){$GLOBALS.coming.push("'+c+
+            '");this.setAttribute("here","yes")}else{$GLOBALS.coming.removeFirst("'+c+'");this.setAttribute("here","no")}\' here='+
+            JS('($GLOBALS.coming.indexOf($current.getMem("$c"))<0?"no>":"yes>")')+c.toUpperCase()+'</div>'
+            i=i+1
+        }
+        #ls.setContent(x)
+    }
+    yield
+}

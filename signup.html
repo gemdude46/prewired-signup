@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Signup | Prewired</title>
+        <style>
+            body {
+                background-color: #EDEDED;
+                background-image: url("//www.prewired.org/img/dimension.png");
+                background-repeat: repeat;
+            }
+            
+            html, body {
+                margin:0;
+                width:100%;
+                height:100%;
+            }
+
+            #oldbrowser *{
+                font-size: 20pt;
+            }
+            
+            #newbrowser > *{
+                opacity: 0;
+                visibility: hidden;
+            }
+            
+            #newbrowser {
+                width:100%;
+                height:100%;
+            }
+            
+            #buttonDIV {
+                position:absolute;
+                width:40%;
+                left:30%;
+                bottom:2em;
+                height:3em;
+                background-color:#f00;
+                color:white;
+                border-radius:1em;
+                font-size:x-large;
+                text-align:center;
+                line-height: 3em;
+                cursor:pointer;
+            }
+            
+            #buttonDIV:before {
+                content: "I'm coming to Prewired";
+            }
+            
+            #buttonDIV:hover {
+                background-color:#f55;
+            }
+            
+            @media all and (orientation:portrait) {
+                #buttonDIV:before {
+                    content: "I'm coming";
+                }
+                #buttonDIV {
+                    bottom:25vh;
+                }
+            }
+            
+            #errorbox {
+                visibility:hidden;
+                position:absolute;
+                top:calc(50% - 5em);
+                height:10em;
+                left:calc(50% - 10em);
+                width:20em;
+                background-color:#f00;
+                border-radius:1em;
+            }
+            
+            #errorbox > div {
+                margin:1em;
+                color:white;
+                font-weight:666;
+            }
+            
+            #errorbox > button {
+                position:absolute;
+                bottom:0;
+                width:4em;
+                left:calc(50% - 2em);
+            }
+
+        </style>
+        <script src="//gemdude46.github.io/libs/$.js"></script>
+        <script src="//gemdude46.github.io/libs/w3+.js"></script>
+    </head>
+    <body>
+        <div id=oldbrowser>
+            <script>
+                document.querySelector('#oldbrowser').style.opacity=0;
+            </script>
+            <center>
+                <br>
+                <img src="//www.prewired.org/img/scotlandcol2.png" alt=Prewired height=200><br>
+                <b>Sign up for Prewired on {d}</b><br>
+                {err}
+                <form action="coming/old">
+                    <br>
+                    Your name:
+                    <input type=text name=p>
+                    <br><br><br>
+                    <input type=submit value="I'm coming to Prewired!">
+                </form>
+            </center>
+        </div>
+        <script>
+            window.nextPW = '{d}';
+            window.ppl = '{m}';
+            var GoGoGo = false, ErrorOpen = false;
+            onload = function(){
+                var err;
+                try {
+                    $X(GET_s('$'));
+                } catch (e) {
+                    err = e;
+                }
+                setTimeout(function(){
+                    document.querySelector('#oldbrowser').style.opacity=1;
+                }, 100);
+                if (err) throw err;
+            };
+        </script>
+    </body>
+</html>
