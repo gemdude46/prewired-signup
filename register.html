@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register | Prewired</title>
+        <style>
+            body {
+                background-color: #EDEDED;
+                background-image: url("//www.prewired.org/img/dimension.png");
+                background-repeat: repeat;
+            }
+            
+            html, body {
+                margin:0;
+                width:100%;
+                height:100%;
+            }
+            
+            img {
+                height:200px;
+            }
+            
+            #main {
+                margin-left:20%;
+                width:60%;
+            }
+            
+            b {
+                font-size:xx-large;
+            }
+            
+            td {
+                max-width:40vw;
+                vertical-align:top;
+            }
+            
+            input {
+                margin-left:1.5em;
+            }
+            
+            #req {
+                width:12em;
+                background-color:#faa;
+                border:4px solid #f33;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <center>
+            <br><img src="//www.prewired.org/img/scotlandcol2.png" alt=Prewired height=200>
+            <br><b>Register for Prewired</b>
+            <br>Fields marked with <font color=red>*</font> are required.
+            {req}
+        </center>
+        <br><div id=main>
+            <form method=post>
+                <table>
+                    <tbody>
+                        <tr><td>Full Name*:</td><td><input type=text name=name required></td></tr>
+                        <tr><td>Email Address*:</td><td><input type=email name=email required></td></tr>
+                        <tr><td>Mobile Phone Number:</td><td><input type=text name=mobile></td></tr>
+                        <tr><td>Any allergies or specific dietary requirements?</td><td><input type=text name=dietary></td></tr>
+                        <tr><td>Any medication it would be useful for us to know about?</td><td><input type=text name=medication></td></tr>
+                        <tr><td>Any illnesses, injuries or conditions that it would be useful for us to know about?</td>
+                        <td><input type=text name=illnesses></td></tr>
+                        <tr><td>A website, blog, etc?</td><td><input type=text name=website><br><br></td></tr>
+                        <tr><td>Partial date of birth (Month/Year):</td><td><input type=month name=birthmonth></td></tr>
+                        <tr><td>Any disabilities?</td><td><input type=text name=disabilities></td></tr>
+                        <tr><td>Place of Residence Postcode:</td><td><input type=text name=postcode></td></tr>
+                        <tr><td>Gender:</td><td><input type=text name=gender></td></tr>
+                        <tr><td>Ethnicity:</td><td><input type=text name=ethnicity></td></tr>
+                        <tr><td>Religion:</td><td><input type=text name=religion><br><br></td></tr>
+                        <tr><td>Emergency Contact 1:</td><td></td>
+                        <tr><td>---Name*:</td><td><input type=text name=EC1name required></td></tr>
+                        <tr><td>---Relation to Member*:</td><td><input type=text name=EC1relation required></td></tr>
+                        <tr><td>---Phone Number*:</td><td><input type=text name=EC1phone required></td></tr>
+                        <tr><td>---Email*:</td><td><input type=email name=EC1email required><br><br></td></tr>
+                        <tr><td>Emergency Contact 2:</td><td></td>
+                        <tr><td>---Name*:</td><td><input type=text name=EC2name required></td></tr>
+                        <tr><td>---Relation to Member*:</td><td><input type=text name=EC2relation required></td></tr>
+                        <tr><td>---Phone Number*:</td><td><input type=text name=EC2phone required></td></tr>
+                        <tr><td>---Email*:</td><td><input type=email name=EC2email required></td></tr>
+                    </tbody>
+                </table>
+                <br><br>The member may be photographed and/or filmed during Prewired events, and these
+                photographs/filmsmay be used in print or online publicity for future Prewired events.*:<br>
+                <input type=radio name=photo value=yes required> I understand<br>
+                <input type=radio name=photo value=no required> I do not consent (please get in touch with us about this!)<br><br>
+                You give Prewired permission to store these details, printed or electronically for
+                as long as Prewired deems necessary for the successful running of Prewired.*:<br>
+                <input type=checkbox name=storage required> I understand<br><br>
+                You agree that these details are correct and up to date, and to notify
+                Prewired by email (hello@prewired.org) if any of the details change.*:<br>
+                <input type=checkbox name=update required> I understand<br><br>
+                This form is being filled out by... <font color=red>*</font><br>
+                <input type=radio name=registeredby value=parent required>
+                A parent or guardian of an attendee (required for attendees aged younger than 14)<br>
+                <input type=radio name=registeredby value=attendee required> An attendee between the ages of 14 and 18 (inclusive)<br><br>
+                <center><input type=submit value=Register></center>
+            </form>
+            <br><br><br><br><br><br><br><br><br><br>
+        </div>
+    </body>
+</html>

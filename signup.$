@@ -1,6 +1,7 @@
 #include <dom>
 #include <ajax>
 #include <uri>
+#include <storage>
 
 def errorbox(msg) {
     JS('(ErrorOpen=true)')
@@ -18,7 +19,8 @@ body.setContent('
         <img src="//www.prewired.org/img/scotlandcol2.png" alt=Prewired style="height:30vh;margin-top:2em;" alignx=center id=logoIMG>
         <h1 id=signupH1 style="text-align:center;">Signup for Prewired</h1>
         <p id=dateP style="text-align:center;margin-top:-1em;">On '+window.nextPW+'</p>
-        <span id=nameSPAN alignx=center style="font-size:x-large;">Name:<input id=namebox style="font-size:x-large;" type=text></span>
+        <span id=nameSPAN alignx=center style="font-size:x-large;">Name:
+        <input id=namebox style="font-size:x-large;" type=text class=awesomplete></span>
         <div id=buttonDIV onclick="GoGoGo=!ErrorOpen" ontouchstart="GoGoGo=!ErrorOpen">!</div>
         <div id=thx style="text-align:center;position:absolute;top:calc(30vh + 4em);left:0;width:100%;">
             <h1>Thank you for registering!</h1>
@@ -27,6 +29,11 @@ body.setContent('
     </div>
     <div id=errorbox></div>
 ')
+
+#namebox.setAttribute('data-list', ', '.join(window.ppl))
+
+u = localStorage.getItem('U')
+if u #namebox.setValue(u)
 
 #logoIMG.fadeIn(200)
 while #logoIMG.currentlyPlayingAnimations yield
@@ -56,6 +63,8 @@ while submitted == false {
     }
     yield
 }
+
+localStorage.setItem('U',#namebox.value)
 
 #signupH1.fadeOut(300)
 #dateP.fadeOut(300)
