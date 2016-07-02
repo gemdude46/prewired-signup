@@ -20,7 +20,7 @@ body.setContent('
         <h1 id=signupH1 style="text-align:center;">Signup for Prewired</h1>
         <p id=dateP style="text-align:center;margin-top:-1em;">On '+window.nextPW+'</p>
         <span id=nameSPAN alignx=center style="font-size:x-large;">Name:
-        <input id=namebox style="font-size:x-large;" type=text class=awesomplete></span>
+        <input id=namebox style="font-size:x-large;" type=text list=names></span>
         <div id=buttonDIV onclick="GoGoGo=!ErrorOpen" ontouchstart="GoGoGo=!ErrorOpen">!</div>
         <div id=thx style="text-align:center;position:absolute;top:calc(30vh + 4em);left:0;width:100%;">
             <h1>Thank you for registering!</h1>
@@ -28,12 +28,12 @@ body.setContent('
         </div>
     </div>
     <div id=errorbox></div>
+    <datalist id=names><option>'+window.ppl.join('</option><option>')+'</option></datalist>
 ')
-
-#namebox.setAttribute('data-list', ', '.join(window.ppl))
 
 u = localStorage.getItem('U')
 if u #namebox.setValue(u)
+#namebox.addEventListener('keydown', JS('(function(e){if(e.keyCode==13)GoGoGo=!ErrorOpen})'))
 
 #logoIMG.fadeIn(200)
 while #logoIMG.currentlyPlayingAnimations yield
@@ -72,5 +72,10 @@ localStorage.setItem('U',#namebox.value)
 #buttonDIV.fadeOut(300)
 
 while #buttonDIV.currentlyPlayingAnimations yield
+
+#signupH1.hide()
+#dateP.hide()
+#nameSPAN.hide()
+#buttonDIV.hide()
 
 #thx.fadeIn(300)
