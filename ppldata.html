@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="//gemdude46.github.io/libs/$.js"></script>
+        <script src="//gemdude46.github.io/libs/w3+.js"></script>
+    </head>
+    <body>
+    Profile for <input type=text id=who list=ppl>
+    <datalist id=ppl></datalist>
+    <div id=profile style="border:2px solid black;height:calc(100vh - 9em);overflow:auto;padding:3em"></div>
+    <img id=loading alt=loading src="//gh.neelu.co/gfotm/images/loading.gif"
+    style="position:absolute;top:calc(50vh - 64px);left:calc(50vw - 64px)">
+    <script>$X(GET_s('/ppldata$'));</script>
+    </body>
+</html>

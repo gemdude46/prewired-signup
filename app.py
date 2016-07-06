@@ -27,7 +27,8 @@ fields = (
     'EC2phone',
     'EC2email',
     'photo',
-    'registeredby'
+    'registeredby',
+    'ts'
 )
 
 app = Flask(__name__)
@@ -109,9 +110,14 @@ def register():
             request.form.get('EC2relation') and request.form.get('EC2phone') and request.form.get('EC2email') and request.form.get('photo')
             in ('yes','no') and request.form.get('registeredby') in ('parent','attendee')):
             
+            if request.form['name'].lower() in [i[0] for i in get_member_list()]:
+                return ('<!DOCTYPE html><html><head><title>Redirecting...</title><script type="text/'+
+                'javascript">location.href="/eviltwin";</script></head><body><h1>Redirecting...'+
+                '</h1>If you are not redirected, <a href="/eviltwin">click here</a>.</body></html>')
+            
             with reg_lock:
                 f = open('members', 'a')
-                f.write('\t'.join([cut_w_s(request.form.get(field) or '-') for field in fields]).lower()+'\n')
+                f.write('\t'.join([cut_w_s((request.form.get(field),str(time.time()))[field=='ts']or'-')for field in fields]).lower()+'\n')
                 f.close()
             
             f = open('registered.html', 'r')
@@ -123,6 +129,13 @@ def register():
             'javascript">location.href="/register?req";</script></head><body><h1>Redirecting...'+
             '</h1>If you are not redirected, <a href="/register?req">click here</a>.</body></html>')
                 
+
+@app.route('/eviltwin')
+def evil_twin():
+    f = open('evil.html', 'r')
+    c = f.read()
+    f.close()
+    return c
 
 @app.route('/ls')
 def ls():
@@ -145,6 +158,24 @@ def registeredls():
     for member in get_member_list():
         t += '<tr><td>{}</td></tr>'.format('</td><td>'.join(member))
     return '<style>tr *{border:1px solid #000</style><table>'+t+'</table>'
+
+@app.route('/regjson')
+def regjson():
+    return Response(json.dumps({'f':fields,'m':get_member_list()}), mimetype='application/json')
+
+@app.route('/ppldata')
+def ppldata():
+    f = open('ppldata.html', 'r')
+    c = f.read()
+    f.close()
+    return c
+
+@app.route('/ppldata$')
+def ppldatads():
+    f = open('ppldata.$', 'r')
+    c = f.read()
+    f.close()
+    return Response(c, mimetype='text/plain')
 
 '''
 @app.route('/favicon.ico')
