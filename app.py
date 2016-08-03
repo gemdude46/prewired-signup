@@ -117,7 +117,8 @@ def register():
             
             with reg_lock:
                 f = open('members', 'a')
-                f.write('\t'.join([cut_w_s((request.form.get(field),str(time.time()))[field=='ts']or'-')for field in fields]).lower()+'\n')
+                f.write(('\t'.join([cut_w_s((request.form.get(field),str(time.time()))
+                [field=='ts']or'-')for field in fields]).lower()+'\n').encode('utf-8'))
                 f.close()
             
             f = open('registered.html', 'r')
@@ -151,40 +152,6 @@ def lsds():
     c = f.read()
     f.close()
     return Response(c, mimetype='text/plain')
-
-@app.route('/registeredls')
-def registeredls():
-    t = '<tr><th>{}</th></tr>'.format('</th><th>'.join(fields))
-    for member in get_member_list():
-        t += '<tr><td>{}</td></tr>'.format('</td><td>'.join(member))
-    return '<style>tr *{border:1px solid #000</style><table>'+t+'</table>'
-
-@app.route('/regjson')
-def regjson():
-    return Response(json.dumps({'f':fields,'m':get_member_list()}), mimetype='application/json')
-
-@app.route('/ppldata')
-def ppldata():
-    f = open('ppldata.html', 'r')
-    c = f.read()
-    f.close()
-    return c
-
-@app.route('/ppldata$')
-def ppldatads():
-    f = open('ppldata.$', 'r')
-    c = f.read()
-    f.close()
-    return Response(c, mimetype='text/plain')
-
-'''
-@app.route('/favicon.ico')
-def favicon():
-    f = open('favicon.ico', 'rb')
-    c = f.read()
-    f.close()
-    return c
-'''
 
 @app.route('/coming/old')
 def coming_old():
